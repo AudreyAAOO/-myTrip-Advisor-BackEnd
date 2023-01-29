@@ -37,7 +37,7 @@ app.post("/form", async (req, res) => {
 		//   On crée un objet messageData qui contient des informations concernant le mail (qui m'envoie le mail, adresse vers laquelle je veux envoyer le mail, titre et contenu du mail) :
 		const newMessage = {
 			from: `${firstname}${lastname} <${email}>`,
-			to: ["delirium.hobbit@gmail.com"],
+			to: "delirium.hobbit@gmail.com",
 			subject: "Ceci est un mail auto envoyé",
 			text: message,
 		};
