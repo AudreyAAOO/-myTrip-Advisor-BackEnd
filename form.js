@@ -21,27 +21,27 @@ router.get("/", (req, res) => {
 	res.status(200).json({ message: "Welcome !!!!" });
 });
 
-router.post("/form",async (req, res) => {
+router.post("/form", async (req, res) => {
 	console.log("route /form");
 	console.log("FIRSTNAME===>", req.body);
 	try {
-			// destructuring
-			const { firstname, lastname, email, message } = req.body;
-			//   On crée un objet messageData qui contient des informations concernant le mail (qui m'envoie le mail, adresse vers laquelle je veux envoyer le mail, titre et contenu du mail) :
-			const newMessage = {
-				from: `${firstname}${lastname} <${email}>`,
-				to: ["delirium.hobbit@gmail.com"],
-				subject: "Ceci est un mail auto envoyé",
-				text: message,
-			};
-			const response = await client.messages.create(
-				process.env.DOMAIN_MAILGUN,
-				newMessage
-			);
+		// destructuring
+		const { firstname, lastname, email, message } = req.body;
+		//   On crée un objet messageData qui contient des informations concernant le mail (qui m'envoie le mail, adresse vers laquelle je veux envoyer le mail, titre et contenu du mail) :
+		const newMessage = {
+			from: `${firstname}${lastname} <${email}>`,
+			to: ["delirium.hobbit@gmail.com"],
+			subject: "Ceci est un mail auto envoyé",
+			text: message,
+		};
+		const response = await client.messages.create(
+			process.env.DOMAIN_MAILGUN,
+			newMessage
+		);
 
 		console.log("réponse >>", response);
 
-		res.status(200).json({ message: "test post  !!!!" }); //response
+		res.status(200).json(response); //
 	} catch (error) {
 		res.status(400).json(error);
 	}
