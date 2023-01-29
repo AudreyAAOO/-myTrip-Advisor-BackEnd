@@ -18,12 +18,12 @@ const client = mailgun.client({
 });
 
 router.get("/", (req, res) => {
-	res.status(200).json({ message: "Welcome !!!!" });
+	res.status(200).json({ message: "(๑•͈ᴗ•͈)  Welcome !!!!" });
 });
 
 router.post("/form", async (req, res) => {
-	console.log("route /form");
-	console.log("FIRSTNAME===>", req.body);
+	//console.log("route /form");
+	//console.log("FIRSTNAME===>", req.body);
 	try {
 		// destructuring
 		const { firstname, lastname, email, message } = req.body;
