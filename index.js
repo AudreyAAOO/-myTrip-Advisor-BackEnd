@@ -20,8 +20,7 @@ app.use(cors());
 const mailgun = new Mailgun(formData);
 const client = mailgun.client({
 	username: "AudreySC",
-	key: process.env
-		.API_KEY_MAILGUN /* VOTRE CLÉ API 'XXXXXXXXXXXXXXXXXXXXXXX' à mettre dans .env*/,
+	key: process.env.API_KEY_MAILGUN /* VOTRE CLÉ API 'XXXXXXXXXXXXXXXXXXXXXXX' à mettre dans .env*/,
 });
 
 app.get("/", (req, res) => {
@@ -30,25 +29,27 @@ app.get("/", (req, res) => {
 
 app.post("/form", async (req, res) => {
 	//console.log("route /form");
-	//console.log("FIRSTNAME===>", req.body);
+	console.log("FIRSTNAME===>", req.body);
+	
 	try {
 		// destructuring
 		const { firstname, lastname, email, message } = req.body;
 		//   On crée un objet messageData qui contient des informations concernant le mail (qui m'envoie le mail, adresse vers laquelle je veux envoyer le mail, titre et contenu du mail) :
 		const newMessage = {
-			from: `${firstname}${lastname} <${email}>`,
+			from: `${firstname} ${lastname} <${email}>`,
 			to: "delirium.hobbit@gmail.com",
 			subject: "Ceci est un mail auto envoyé",
 			text: message,
 		};
 		const response = await client.messages.create(
-			process.env.DOMAIN_MAILGUN,
-			newMessage
+		process.env.DOMAIN_MAILGUN,
+		newMessage
 		);
 
 		console.log("réponse >>", response);
 
 		res.status(200).json(response); //
+		console.log("réponse >>", newMessage);
 	} catch (error) {
 		res.status(400).json(error.message);
 	}
